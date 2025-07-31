@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accordion</title>
+    <style>
+      details {
+        width: 250px;
+
+        & > summary {
+          background: linear-gradient(#ddd, #bbb);
+          padding: 1em;
+          cursor: pointer;
+
+          & > span {
+            pointer-events: none;
+            font-weight: bold;
+          }
+
+          &::marker {
+            content: '';
+          }
+        }
+
+        &[open] {
+          & > summary {
+            pointer-events: none;
+            cursor: none;
+          }
+
+          &::details-content {
+            background-color: #eee;
+            height: 200px;
+            inset: 0;
+            overflow: auto;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <details open name="accordion">
+      <summary><span>One</span></summary>
+      <div>One</div>
+    </details>
+    <details name="accordion">
+      <summary><span>Two</span></summary>
+      <div>Two</div>
+    </details>
+    <details name="accordion">
+      <summary><span>Three</span></summary>
+      <div>Three</div>
+    </details>
+    <details name="accordion">
+      <summary><span>Four</span></summary>
+      <div>Four</div>
+    </details>
+  </body>
+</html>

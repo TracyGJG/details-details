@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu</title>
+    <style>
+      nav {
+        --menu-height: 2.5em;
+        --default-gradient: linear-gradient(#ddd, #bbb, #ddd);
+        --selected-gradient: linear-gradient(#bbb, #ddd, #bbb);
+
+        position: absolute;
+        inset: 0 0 auto 0;
+        padding-left: 0.5em;
+        background: var(--default-gradient);
+        height: var(--menu-height);
+      }
+
+      .menu {
+        & > * {
+          float: left;
+          font-weight: bold;
+          padding-left: 0.5em;
+        }
+
+        & .menuItem,
+        & .menuOption {
+          height: calc(var(--menu-height) - 0.75em);
+          padding: 0.75em 1em 0;
+          background: var(--selected-gradient);
+          cursor: pointer;
+        }
+        & .menuItem {
+          display: inline-block;
+        }
+
+        & .sideMenu {
+          display: flex;
+          position: relative;
+
+          & > .menuOption {
+            &::marker {
+              content: '';
+            }
+
+            &:after {
+              content: '▷';
+              padding-left: 1em;
+              float: right;
+              pointer-events: none;
+            }
+          }
+
+          &[open] {
+            & > summary {
+              margin-right: -0.5em;
+              padding: 0.75em 0 0 1em;
+            }
+          }
+
+          & > summary:hover {
+            padding: 0.75em 0 0 1em;
+          }
+        }
+
+        & .subMenu {
+          min-width: 13em;
+        }
+
+        & .subMenuOptions,
+        & .sideMenuOption {
+          & > * {
+            display: block;
+          }
+        }
+
+        & .sideMenuOption {
+          position: absolute;
+          top: 0;
+          left: 13.5em;
+          min-width: 10em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="menu">
+      <span class="menuItem">Simple One</span>
+
+      <details class="subMenu" name="subMenu">
+        <summary class="menuOption">SubMenu One</summary>
+
+        <div class="subMenuOptions">
+          <span class="menuItem">Item One</span>
+          <span class="menuItem">Item Two</span>
+        </div>
+      </details>
+
+      <details class="subMenu" name="subMenu">
+        <summary class="menuOption">SubMenu Two</summary>
+
+        <div class="subMenuOptions">
+          <span class="menuItem">Item Three</span>
+
+          <details class="sideMenu" name="subMenu2">
+            <summary class="menuOption">Side menu One</summary>
+
+            <div class="sideMenuOption">
+              <span class="menuItem">Item Four</span>
+              <span class="menuItem">Item Five</span>
+            </div>
+          </details>
+
+          <details class="sideMenu" name="subMenu2">
+            <summary class="menuOption">Another Side menu</summary>
+
+            <div class="sideMenuOption">
+              <span class="menuItem">Item Six</span>
+              <span class="menuItem">Item Seven</span>
+            </div>
+          </details>
+        </div>
+      </details>
+    </nav>
+
+    <script>
+      const actions = (menuItem) =>
+        console.log(`Selected Item: ${menuItem.textContent}`);
+
+      ((_action, id = '') => {
+        const details = document.querySelectorAll(`${id} details`.trim());
+        document.querySelector('nav').addEventListener('click', (evt) => {
+          if (evt.target.className === 'menuItem') {
+            details.forEach((detail) => (detail.open = false));
+            _action(evt.target);
+          }
+        });
+      })(actions);
+    </script>
+  </body>
+</html>

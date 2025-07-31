@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tabs</title>
+    <style>
+      .tabs {
+        height: 600px;
+        width: 800px;
+        position: relative;
+      }
+
+      details {
+        float: left;
+
+        & > summary {
+          background: linear-gradient(#ddd, #bbb);
+          padding: 0.5em 1em;
+          margin-left: 0.5em;
+          border-radius: 0.5em 0.5em 0 0;
+
+          & > span {
+            pointer-events: none;
+            font-weight: bold;
+          }
+
+          &::marker {
+            content: '';
+          }
+        }
+
+        &[open] {
+          & > summary {
+            pointer-events: none;
+            cursor: none;
+          }
+
+          &::details-content {
+            position: absolute;
+            border: 0.5em solid #bbb;
+            border-radius: 0.5em;
+            inset: 34px 0 0 0;
+            overflow-y: scroll;
+          }
+        }
+
+        &:not([open]) > summary {
+          background: linear-gradient(#bbb, #ddd);
+          cursor: pointer;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tabs">
+      <details open name="tabs">
+        <summary><span>One</span></summary>
+        <div>One</div>
+      </details>
+      <details name="tabs">
+        <summary><span>Two</span></summary>
+        <div>Two</div>
+      </details>
+      <details name="tabs">
+        <summary><span>Three</span></summary>
+        <div>Three</div>
+      </details>
+      <details name="tabs">
+        <summary><span>Four</span></summary>
+        <div>Four</div>
+      </details>
+    </div>
+  </body>
+</html>
